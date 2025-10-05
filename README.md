@@ -1,2 +1,157 @@
 # socolata.github.io
-my website 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socolata - About Me</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    scroll-behavior: smooth;
+    background: linear-gradient(135deg, #1e1e2f, #3e3e5e);
+}
+header {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+}
+header::after {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background-color: rgba(0,0,0,0.5); z-index:0;
+}
+header .header-content { position: relative; z-index:1; }
+header h1 { font-size: 4em; margin-bottom: 10px; }
+header p { font-size: 1.5em; color: #ddd; }
+
+main { max-width: 900px; margin: auto; padding: 50px 20px; }
+
+section {
+    margin-bottom: 60px;
+    padding: 30px;
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease;
+    opacity: 0; transform: translateY(20px);
+}
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+h2 { font-size: 2em; margin-bottom: 15px; }
+
+footer {
+    text-align: center; padding: 30px;
+    background-color: rgba(0,0,0,0.3);
+}
+
+a { color: #00ffff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+form { display: flex; flex-direction: column; }
+form input, form textarea {
+    padding: 10px; margin-bottom: 15px;
+    border-radius: 8px; border: none; background-color: #333; color: #fff;
+}
+form button {
+    padding: 10px; border: none; border-radius: 8px;
+    background-color: #00ffff; color: #000; font-weight: bold; cursor: pointer;
+}
+form button:hover { background-color: #00bbbb; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>Socolata</h1>
+        <p>Personal info & tech interests</p>
+    </div>
+</header>
+
+<main>
+    <section class="contact">
+        <h2>Contact</h2>
+        <p>Discord: <strong>socolata#2995</strong></p>
+        <p><a href="https://discord.com/users/1081947780144177243" target="_blank">Visit my Discord Profile</a></p>
+        <form id="contactForm">
+            <input type="text" id="discordName" name="discordName" placeholder="Your Discord Name" required>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <section class="tech-info">
+        <h2>Technology</h2>
+        <p>This section can include your tech interests, projects, and other info.</p>
+    </section>
+
+    <section class="projects">
+        <h2>Projects & Links</h2>
+        <p>Here you can add information about your projects, achievements, or anything else.</p>
+        <p>
+            <a href="https://github.com/shimontheking4234" target="_blank">GitHub</a> | 
+            <a href="https://discord.com/users/1081947780144177243" target="_blank">Discord Profile</a>
+        </p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Socolata</p>
+</footer>
+
+<script>
+// Fade-in sections on scroll
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if(scrollY + windowHeight > sectionTop + 100){
+            section.style.opacity = 1;
+            section.style.transform = "translateY(0)";
+        }
+    });
+});
+
+// Discord Webhook for Contact Form
+const form = document.getElementById('contactForm');
+const webhookURL = 'https://discord.com/api/webhooks/1424186998125498433/H3qZFIbJGQisniM80KwewJWXfmhONl9oFJ-0rogYBLavTNdytTwBGCIN7a-Lq2-Es1LP';
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const discordName = document.getElementById('discordName').value;
+    const message = document.getElementById('message').value;
+    const payload = {
+        content: `📨 **New message from your website contact form!**
+**Discord Name:** ${discordName}
+**Message:** ${message}`
+    };
+    try {
+        await fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        alert('Message sent successfully!');
+        form.reset();
+    } catch (err) {
+        alert('Error sending message.');
+        console.error(err);
+    }
+});
+</script>
+
+</body>
+</html>
+
