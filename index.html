@@ -402,8 +402,16 @@
         const contactHint = contactBtn.querySelector('.hint');
         const discordTag = 'socolata';
 
-        // Remove GitHub links/buttons from the page
+        // Remove GitHub anchors (links) from the page
         document.querySelectorAll('a[href*="github.com"]').forEach(el => el.remove());
+
+        // Remove any leftover elements that mention "GitHub" (case-insensitive)
+        // (targets leaf nodes to avoid accidentally removing larger containers)
+        document.querySelectorAll('body *').forEach(el => {
+            if (el.children.length === 0 && typeof el.textContent === 'string' && /github/i.test(el.textContent.trim())) {
+                el.remove();
+            }
+        });
 
         const showHint = (btn, hintEl, text) => {
             hintEl.textContent = text;
