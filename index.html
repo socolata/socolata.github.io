@@ -1,1 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Socolata — personal about page. Elegant, futuristic digital identity." />
+    <meta name="theme-color" content="#2b1b11" />
+    <title>Socolata — About</title>
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --bg-900: #0f0b08;
+            --bg-800: #1b120d;
+            --choc-700: #3b2216;
+            --choc-500: #6a3f2a;
+            --gold-600: #c99b4a;
+            --gold-300: #f0d29a;
+            --glass: rgba(255,255,255,0.04);
+            --muted: rgba(255,255,255,0.65);
+            --card-radius: 14px;
+            --glow: 0 6px 30px rgba(201,155,74,0.12);
+            color-scheme: dark;
+        }
+
+        * { box-sizing: border-box; }
+        html,body { height:100%; }
+        body{
+            margin:0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 600px at 10% 10%, rgba(201,155,74,0.06), transparent 8%),
+                                    radial-gradient(900px 400px at 90% 90%, rgba(240,210,154,0.03), transparent 6%),
+                                    linear-gradient(180deg, var(--bg-900), var(--bg-800));
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:48px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        /* Container */
+        .wrap{
+            width:100%;
+            max-width:920px;
+            margin:0 auto;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:32px;
+            flex-direction:column;
+            position:relative;
+        }
+
+        /* Card */
+        .card{
+            width:100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: var(--glow), 0 8px 40px rgba(0,0,0,0.6);
+            border-radius: var(--card-radius);
+            padding:28px;
+            display:flex;
+            gap:24px;
+            align-items:center;
+            justify-content:space-between;
+            transition: transform .32s cubic-bezier(.2,.9,.2,1), box-shadow .32s;
+            transform-style:preserve-3d;
+            will-change:transform;
+        }
+
+        /* Left: avatar + info */
+        .profile{
+            display:flex;
+            gap:18px;
+            align-items:center;
+            min-width:0;
+        }
+
+        .avatar{
+            width:96px;
+            height:96px;
+            min-width:96px;
+            border-radius:20px;
+            background: linear-gradient(135deg, var(--choc-700), #4a2d1f 60%);
+            border:1px solid rgba(255,255,255,0.06);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color: var(--gold-300);
+            font-family: "Space Grotesk", Inter, sans-serif;
+            font-weight:700;
+            font-size:36px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.5), 0 0 18px rgba(201,155,74,0.06) inset;
+            position:relative;
+            transition: box-shadow .28s, transform .28s;
+        }
+
+        /* small glowing ring */
+        .avatar::after{
+            content:"";
+            position:absolute;
+            inset:-6px;
+            border-radius:22px;
+            background: linear-gradient(90deg, rgba(201,155,74,0.12), rgba(240,210,154,0.06));
+            filter: blur(18px);
+            opacity:0;
+            transition:opacity .28s;
+            pointer-events:none;
+        }
+
+        .avatar:hover{ transform: translateY(-6px) rotate(-2deg); }
+        .avatar:hover::after{ opacity:1; }
+
+        .info{
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+            min-width:0;
+        }
+
+        .name{
+            color:var(--gold-300);
+            font-size:20px;
+            font-weight:700;
+            letter-spacing:0.2px;
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+        .role{
+            color:var(--muted);
+            font-size:13px;
+            opacity:0.95;
+        }
+
+        .bio{
+            color: rgba(255,255,255,0.9);
+            font-size:15px;
+            max-width:520px;
+            line-height:1.45;
+            opacity:0.95;
+        }
+
+        /* Right: actions */
+        .actions{
+            display:flex;
+            gap:12px;
+            align-items:center;
+            margin-left:auto;
+        }
+
+        .btn{
+            display:inline-flex;
+            gap:10px;
+            align-items:center;
+            padding:10px 14px;
+            border-radius:12px;
+            font-weight:600;
+            font-size:14px;
+            color:var(--bg-900);
+            background: linear-gradient(180deg, var(--gold-300), var(--gold-600));
+            border: 1px solid rgba(0,0,0,0.25);
+            text-decoration:none;
+            box-shadow: 0 8px 30px rgba(201,155,74,0.14);
+            transition: transform .18s ease, box-shadow .18s;
+        }
+        .btn:active{ transform:translateY(1px); }
+        .btn.ghost{
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+            color: var(--gold-300);
+            border: 1px solid rgba(201,155,74,0.12);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+        }
+
+        a.btn:hover{ transform: translateY(-4px); }
+
+        /* Social row */
+        .links{
+            display:flex;
+            gap:14px;
+            align-items:center;
+            margin-top:14px;
+            flex-wrap:wrap;
+        }
+
+        .link-chip{
+            display:inline-flex;
+            gap:10px;
+            align-items:center;
+            padding:8px 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius:10px;
+            color:var(--gold-300);
+            font-weight:600;
+            font-size:13px;
+            border:1px solid rgba(255,255,255,0.03);
+            transition: box-shadow .18s, transform .18s;
+            text-decoration:none;
+        }
+        .link-chip:hover{
+            transform:translateY(-6px);
+            box-shadow: 0 14px 40px rgba(201,155,74,0.08);
+        }
+
+        .meta{
+            margin-top:18px;
+            color: rgba(255,255,255,0.65);
+            font-size:13px;
+            display:flex;
+            gap:12px;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        /* small subtle footer */
+        .footer-note{
+            margin-top:18px;
+            font-size:12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Floating accent shapes */
+        .accent{
+            position:absolute;
+            width:380px;
+            height:380px;
+            border-radius:50%;
+            filter: blur(80px);
+            opacity:0.06;
+            pointer-events:none;
+        }
+        .accent.one{ right:-80px; top:-80px; background: linear-gradient(90deg,#c99b4a,#f0d29a); transform: rotate(12deg);}
+        .accent.two{ left:-120px; bottom:-120px; width:420px; height:420px; background: linear-gradient(90deg,#6a3f2a,#4a2d1f); opacity:0.05; }
+
+        /* responsive */
+        @media (max-width:880px){
+            .card{
+                padding:22px;
+                flex-direction:column;
+                align-items:flex-start;
+                gap:18px;
+            }
+            .actions{ width:100%; justify-content:space-between; margin-left:0; }
+            .avatar{ width:80px; height:80px; min-width:80px; font-size:30px; border-radius:14px; }
+        }
+        @media (max-width:520px){
+            body{ padding:28px 14px; }
+            .wrap{ max-width:420px; }
+            .card{ padding:18px; border-radius:12px; }
+            .name{ font-size:18px; }
+            .bio{ font-size:14px; }
+            .avatar{ width:68px; height:68px; font-size:26px; min-width:68px; }
+        }
+
+        /* reduced motion preference */
+        @media (prefers-reduced-motion: reduce){
+            .card, .avatar, .link-chip, .btn { transition:none !important; animation:none !important; }
+        }
+
+        /* icons */
+        .icon{
+            display:inline-block;
+            width:18px;
+            height:18px;
+            fill:currentColor;
+        }
+
+        /* copy tooltip */
+        .tooltip{
+            position:relative;
+        }
+        .tooltip .hint{
+            position:absolute;
+            bottom:120%;
+            left:50%;
+            transform:translateX(-50%);
+            background:rgba(0,0,0,0.6);
+            color:#fff;
+            padding:6px 8px;
+            border-radius:6px;
+            font-size:12px;
+            opacity:0;
+            pointer-events:none;
+            transition:opacity .18s;
+            white-space:nowrap;
+        }
+        .tooltip.show .hint{ opacity:1; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="accent one" aria-hidden="true"></div>
+        <div class="accent two" aria-hidden="true"></div>
+
+        <main class="card" id="mainCard" role="main" aria-labelledby="heroTitle">
+            <div class="profile">
+                <div class="avatar" id="avatar" aria-hidden="true">S</div>
+
+                <div class="info">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                        <div class="name" id="heroTitle">Socolata
+                            <span style="font-size:12px;font-weight:600;background:rgba(201,155,74,0.08);padding:6px 8px;border-radius:8px;color:var(--gold-300);font-family:Inter;">
+                                Digital Identity
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="role">Designer · Builder · Creative technologist</div>
+
+                    <p class="bio">
+                        I'm a guy who loves playing CS2 — with cheats, LOL.
+                    </p>
+
+                    <div class="links" aria-label="Social links">
+                        <a class="link-chip" href="https://github.com/Socolata" target="_blank" rel="noopener noreferrer" title="GitHub — Socolata"></a>
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.53-3.87-1.53-.53-1.36-1.29-1.72-1.29-1.72-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.45.11-3.02 0 0 .97-.31 3.18 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.5 3.17-1.18 3.17-1.18.62 1.57.23 2.73.11 3.02.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.8 1.08.8 2.18 0 1.57-.01 2.84-.01 3.22 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                            GitHub
+                        </a>
+
+                        <button class="link-chip tooltip" id="discordBtn" title="Copy Discord username">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.397 3c-.165.285-.352.657-.48.946-1.434-.215-2.863-.215-4.27 0-.128-.29-.315-.66-.48-.945A19.736 19.736 0 0 0 3.683 4.37C1.088 9.02.443 13.505 1.28 17.842 6.033 21.164 10.358 22 14.999 22s8.967-.836 13.72-4.158c.84-4.337.193-8.822-3.402-13.473zM9.545 15.803c-1.18 0-2.084-1.084-2.084-2.42 0-1.335.956-2.419 2.084-2.419 1.132 0 2.036 1.084 2.084 2.42 0 1.335-.952 2.419-2.084 2.419zm6.909 0c-1.18 0-2.084-1.084-2.084-2.42 0-1.335.956-2.419 2.084-2.419 1.132 0 2.036 1.084 2.084 2.42 0 1.335-.952 2.419-2.084 2.419z"/></svg>
+                            Discord: socolata#2995
+                            <span class="hint" role="status">Copied!</span>
+                        </button>
+                    </div>
+
+                    <div class="meta">
+                        <div>Futuristic · Minimal · Warm</div>
+                        <div>Available for collaboration</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions" aria-hidden="false">
+                <a class="btn" href="https://github.com/Socolata" target="_blank" rel="noopener noreferrer"></a>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.53-3.87-1.53-.53-1.36-1.29-1.72-1.29-1.72-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.45.11-3.02 0 0 .97-.31 3.18 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.5 3.17-1.18 3.17-1.18.62 1.57.23 2.73.11 3.02.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.8 1.08.8 2.18 0 1.57-.01 2.84-.01 3.22 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                    View on GitHub
+                </a>
+
+                <button class="btn ghost tooltip" id="contactBtn" type="button" aria-label="Copy Discord tag">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.713l11.985-7.713v13.999A2 2 0 0 1 22.99 21H1.01A2 2 0 0 1 0 19.999V6.999L12 14.712zM12 11L.015 3h23.97L12 11z"/></svg>
+                    Copy Discord
+                    <span class="hint" role="status">Copied!</span>
+                </button>
+            </div>
+        </main>
+
+        <div class="footer-note">Designed with a warm chocolate-gold palette. Smooth, responsive, premium feel — ready for deployment.</div>
+    </div>
+
+    <script type="module">
+        // Motion One (lightweight DOM animation) - CDN
+        import { animate } from 'https://cdn.jsdelivr.net/npm/@motionone/dom/dist/motion.es.js';
+
+        // Entrance animation
+        const card = document.querySelector('.card');
+        const avatar = document.getElementById('avatar');
+        const links = document.querySelectorAll('.link-chip');
+
+        // Respect user motion preference
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce) {
+            // subtle staggered entrance
+            animate(card, { opacity: [0,1], transform: ['translateY(20px) scale(.995)', 'translateY(0px) scale(1)'] }, { duration: 0.6, easing: [0.2,0.9,0.2,1] });
+            animate(avatar, { transform: ['translateY(12px) rotate(6deg)', 'translateY(0px) rotate(0deg)'], opacity: [0,1] }, { delay: 0.08, duration: 0.7, easing: 'ease-out' });
+
+            links.forEach((el, i) => {
+                animate(el, { opacity: [0,1], transform: ['translateY(8px)', 'translateY(0px)'] }, { delay: 0.16 + i*0.05, duration: 0.55, easing: 'ease-out' });
+            });
+        }
+
+        // Tilt effect for card
+        const mainCard = document.getElementById('mainCard');
+        const onMove = (e) => {
+            const r = mainCard.getBoundingClientRect();
+            const cx = r.left + r.width/2;
+            const cy = r.top + r.height/2;
+            const rx = (e.clientX - cx) / (r.width/2);
+            const ry = (e.clientY - cy) / (r.height/2);
+            const tiltX = (ry * 6).toFixed(2);
+            const tiltY = (-rx * 8).toFixed(2);
+            mainCard.style.transform = `perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(1px)`;
+            mainCard.style.boxShadow = `0 30px 70px rgba(0,0,0,0.6), 0 10px 40px rgba(201,155,74,0.06)`;
+        };
+        const onLeave = () => {
+            mainCard.style.transform = '';
+            mainCard.style.boxShadow = '';
+        };
+
+        if (!reduce) {
+            mainCard.addEventListener('mousemove', onMove);
+            mainCard.addEventListener('mouseleave', onLeave);
+        }
+
+        // Discord copy-to-clipboard behaviour
+        const discordBtn = document.getElementById('discordBtn');
+        const discordHint = discordBtn.querySelector('.hint');
+        const contactBtn = document.getElementById('contactBtn');
+        const contactHint = contactBtn.querySelector('.hint');
+        const discordTag = 'socolata';
+
+        const showHint = (btn, hintEl, text) => {
+            hintEl.textContent = text;
+            btn.classList.add('show');
+            setTimeout(()=> btn.classList.remove('show'), 1600);
+        };
+
+        discordBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(discordTag);
+                showHint(discordBtn, discordHint, 'Copied!');
+            } catch (err) {
+                showHint(discordBtn, discordHint, 'Press Ctrl/Cmd+C');
+            }
+        });
+
+        // Contact button also copies the Discord tag (no email)
+        contactBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(discordTag);
+                showHint(contactBtn, contactHint, 'Copied!');
+            } catch (err) {
+                showHint(contactBtn, contactHint, 'Press Ctrl/Cmd+C');
+            }
+        });
+
+        // Small floating animation for avatar
+        if (!reduce) {
+            (function floatAvatar(){
+                animate(avatar, { transform: ['translateY(0px)', 'translateY(-6px)', 'translateY(0px)'] }, { duration: 3.8, easing: 'ease-in-out', repeat: Infinity });
+                animate(avatar, { rotate: [0, -1.6, 0] }, { duration: 7.2, easing: 'ease-in-out', repeat: Infinity });
+            })();
+        }
+
+        // Make external links accessible with focus glow
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.style.outline = 'none';
+                el.style.boxShadow = '0 8px 30px rgba(201,155,74,0.16)';
+            });
+            el.addEventListener('blur', () => el.style.boxShadow = '');
+        });
+
+    </script>
+</body>
+</html>
